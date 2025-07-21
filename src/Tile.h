@@ -2,6 +2,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+struct TilePattern {
+	int backgroundNum;
+	int middleNum;
+	int frontNum;
+};
 
 class Tile
 {

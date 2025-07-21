@@ -19,14 +19,14 @@ private:
 	Tile* selectedTile{ nullptr };
 	Tile* secondTile{ nullptr };
 
-	sf::Vector2i selectedCoords = { -1,-1 };
+	sf::Vector2i firstCoords = { -1,-1 };
 public:
 	//int checkCounts;
 	std::vector<std::vector<Tile*>> m_gameBoard;
 	
 	bool HasWonGame();	
 	bool ResolveMatches(Tile& tileOne, Tile& tileTwo);
-	bool HandleTileSelection(const sf::Vector2i mousePressed);
+	//bool HandleTileSelection(const sf::Vector2i mousePressed) { return false; }
 	void GeneratePatterns();
 	void RemoveTile(int x, int y);
 	void DrawTiles(sf::RenderWindow& window);

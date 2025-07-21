@@ -52,8 +52,8 @@ void Game::Update(unsigned int fpsLimit)
     constexpr float tileSize = 50.0f;
     constexpr float tileSpacing = 5.0f;
     
-    const float startX = m_screenWidth / 10; /* (m_window->getSize().x - (m_rows * (tileSize + tileSpacing))) / 2.f;*/
-    const float startY = m_screenHeight / 4; /*(m_window->getSize().y - (m_columns * (tileSize + tileSpacing))) / 2.f;*/
+    const float startX = (float)m_screenWidth / 10; /* (m_window->getSize().x - (m_rows * (tileSize + tileSpacing))) / 2.f;*/
+    const float startY = (float)m_screenHeight / 4; /*(m_window->getSize().y - (m_columns * (tileSize + tileSpacing))) / 2.f;*/
     
     sf::Vector2f initPos{ startX,startY };
     m_gridManager = new GridManager(m_rows, m_columns, initPos, tileSize, 5.0f);
@@ -67,7 +67,7 @@ void Game::Update(unsigned int fpsLimit)
     soundManager.LoadSound("Assets/Sound/click.wav", "clickSound", 1.0, 50.0f);
     soundManager.LoadMusic("Assets/Music/Bossanova.mp3", "backgroundMusic", 1.0f, 50.0f, true);
     soundManager.LoadMusic("Assets/Music/Reload.mp3", "victoryMusic", 1.0f, 50.0f, true);
-    soundManager.PlaySong("backgroundMusic");
+    //soundManager.PlaySong("backgroundMusic");
     
     sf::Clock clock;
     sf::Time currentTime;
@@ -101,29 +101,28 @@ void Game::Update(unsigned int fpsLimit)
             {
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left)
                 {
-                    std::cout << "The right mouse button was pressed" << std::endl;
+                    std::cout << "The right mouse button was pressed\n";
+                    
+                    std::pair<int, int> firstCoords = m_gridManager->GetTileCoords(sf::Vector2i(mouseButtonPressed->position.x, mouseButtonPressed->position.y));
 
-                    std::pair<int, int> coords = m_gridManager->GetTileCoords(sf::Vector2i(mouseButtonPressed->position.x, mouseButtonPressed->position.y));
-
-                    if (coords.first == -1 && coords.second == -1) {
+                    if (firstCoords.first == -1) { // Clicked out of bounds of tiles
                         std::cout << "No tile selected\n";
                         continue;
                     }
 
-                    int rows = coords.first;
-                    int cols = coords.second;
+                    int rows = firstCoords.first;
+                    int cols = firstCoords.second;
                     std::cout << "The cell selected is " << rows << " : " << cols << "\n";
                     Tile* clickedTile = m_gridManager->m_gameBoard[rows][cols];
 
                     if (clickedTile == nullptr || clickedTile == selectedTile) { // Clicked an empty space or the same tile
-                        if (selectedTile) clickedTile->isHighlighted = true;
+                        std::cout << "Cell selected is null or the same\n";
                         clickedTile = nullptr;
                         continue;
-                        // Skips to the end of function.
                     }
 
                     if (!selectedTile) { // This is the first tile being selected
-                        soundManager.PlaySound("clickSound");
+                        //soundManager.PlaySound("clickSound");
 
                         selectedTile = clickedTile;
                         selectedTile->isHighlighted = true;
@@ -139,11 +138,11 @@ void Game::Update(unsigned int fpsLimit)
                         if (m_gridManager->ResolveMatches(*selectedTile, *secondTile)) {
 
                             soundManager.PlaySound("clickSound");
-                            // Match was successful. Deselect the first tile.
+                            // Match was successful. Deselect the first tile
                             selectedTile->isHighlighted = false;
                             m_hudManager->IncrementComboScore(1);
                             m_hudManager->UpdateLongComboScore(m_hudManager->GetComboScore());
-                            // Check if tiles are fully cleared and delete them if they are.
+                            // Check if tiles are fully cleared and delete them if they are
                             bool secondTileWasCleared = false;
                             
                             if (selectedTile->IsFullyInvisible()) {
@@ -160,10 +159,10 @@ void Game::Update(unsigned int fpsLimit)
                                 selectedTile->isHighlighted = true;
                             }
                             else {
-                                // The second tile was cleared, so nothing is selected.
+                                // The second tile was cleared, so nothing is selected
                                 selectedTile->isHighlighted = false;
                                 selectedTile = nullptr;
-
+                                
                                 secondTile->isHighlighted = false;
                                 secondTile = nullptr;
                             }

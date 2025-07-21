@@ -8,7 +8,7 @@ int main()
 {
     constexpr float kScreenWidth{ 400.0f };
     constexpr float kScreenHeight{ 600.0f };
-
+    
     constexpr int kFrameTarget{ 60 };
     constexpr int kRowCount{ 5 };
     constexpr int kColCount{ 6 };

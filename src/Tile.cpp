@@ -21,7 +21,7 @@ Tile::Tile(int back, int mid, int front, float tileSize): backNumber(back), midd
 		backColour = sf::Color(0, 127, 255); // Blue
 		break;
 	default:
-		backColour = sf::Color::Magenta;
+		//backColour = sf::Color::Magenta;
 		break;
 	}
 
@@ -39,7 +39,7 @@ Tile::Tile(int back, int mid, int front, float tileSize): backNumber(back), midd
 		middleColour = sf::Color(230, 99, 134);
 		break;
 	default:
-		middleColour = sf::Color::Magenta;
+		//middleColour = sf::Color::Magenta;
 		break;
 	}
 
@@ -57,7 +57,7 @@ Tile::Tile(int back, int mid, int front, float tileSize): backNumber(back), midd
 		frontColour = sf::Color::Yellow;
 		break;
 	default:
-		frontColour = sf::Color::Magenta;
+		//frontColour = sf::Color::Magenta;
 		break;
 	}
 }

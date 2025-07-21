@@ -12,6 +12,7 @@ private:
 
 	int m_screenWidth;
 	int m_screenHeight;
+	sf::Vector2i firstCoords;
 
 	GridManager* m_gridManager;
 	HUDManager* m_hudManager;
