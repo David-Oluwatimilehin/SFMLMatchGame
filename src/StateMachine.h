@@ -3,6 +3,7 @@
 #include "State.h"
 
 #include <memory>
+#include <iostream>
 #include <stack>
 
 namespace sf {
@@ -30,12 +31,11 @@ public:
 
 	bool IsRunning() const { return m_running; }
 
-	/*template <typename T>
-	static std::unique_ptr<T> build(StateMachine& machine, sf::RenderWindow& window, bool replace = true);*/
+	template <typename T>
+	static std::unique_ptr<T> build(StateMachine& machine, sf::RenderWindow& window, bool replace = true);
 };
 
-
-/*template <typename T>
+template <typename T>
 std::unique_ptr<T> StateMachine::build(StateMachine& machine, sf::RenderWindow& window, bool replace)
 {
 	auto new_state = std::unique_ptr<T>{ nullptr };
@@ -51,4 +51,6 @@ std::unique_ptr<T> StateMachine::build(StateMachine& machine, sf::RenderWindow& 
 	}
 
 	return new_state;
-}*/
+}
+
+

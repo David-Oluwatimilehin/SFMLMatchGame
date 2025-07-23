@@ -27,7 +27,7 @@ public:
 	virtual void Draw() = 0;
 
 	virtual ~State()= default;
-	std::unique_ptr<State> next();
+	std::unique_ptr<State> Next();
 	State& operator=(const State&) = delete;
 
 	bool isReplacing() const { return m_replacing; }

@@ -3,17 +3,16 @@
 
 #include "GridManager.h"
 #include "SoundManager.h"
+#include "StateMachine.h"
 #include "HUDManager.h"
+#include "MenuState.h"
 
 #include <iostream>
 #include <sstream>
 #include <iomanip>
 
 
-Game::Game()
-{
 
-}
 
 void Game::Start(unsigned int width, unsigned int height, const char* windowTitle, unsigned int rows, unsigned int columns)
 {
@@ -43,6 +42,25 @@ void Game::Start(unsigned int width, unsigned int height, const char* windowTitl
     //m_hudManager->CreateText(sf::Color::White, { float(width / 8) - float(width / 8), float(height / 10) * 7 + 40 }, "0", "currComboAmount", 50);
 }
 
+void Game::Run(unsigned int width, unsigned int height, unsigned int frameRate, const char* windowTitle, unsigned int rows, unsigned int columns)
+{
+    sf::ContextSettings settings;
+    settings.antiAliasingLevel = 8;
+
+    m_window = new sf::RenderWindow(sf::VideoMode({ width, height }), windowTitle, sf::Style::Default, sf::State::Windowed, settings);
+    m_window->setFramerateLimit(frameRate);
+
+    m_machine.Run(StateMachine::build<MenuState>(m_machine, *m_window, true));
+
+    while (m_machine.IsRunning()) {
+        m_machine.NextState();
+        m_machine.Update();
+        m_machine.Draw();
+    }
+
+
+}
+
 void Game::Update(unsigned int fpsLimit)
 {
 
@@ -59,6 +77,20 @@ void Game::Update(unsigned int fpsLimit)
     m_gridManager = new GridManager(m_rows, m_columns, initPos, tileSize, 5.0f);
     m_gridManager->GeneratePatterns();
     
+    sf::Texture texture;
+    if (!texture.loadFromFile("Assets/Background/menuBackground.jpg")) {
+        return;
+    }
+    //texture.setSmooth(true);
+    texture.setRepeated(true);
+
+    sf::Vector2f targetSize( m_screenWidth, m_screenHeight);
+    sf::Sprite background(texture, sf::IntRect({ 0, 0 }, { m_screenWidth, m_screenHeight }));
+
+    //background.setScale(sf::Vector2f(
+    //    targetSize.x / background.getLocalBounds().size.x,
+    //    targetSize.y / background.getLocalBounds().size.y));
+    //background.set
 
     Tile* selectedTile = nullptr;
     sf::Vector2i selectedCoords = { -1,-1 };
@@ -218,7 +250,7 @@ void Game::Update(unsigned int fpsLimit)
         
         m_window->clear(sf::Color(9,9,10));
         
-
+        m_window->draw(background);
         m_gridManager->DrawTiles(*m_window);
         m_hudManager->DisplayElements(*m_window);        
         //m_hudManager->SetNewVisibility();// SHOW VICTORY MESSAGE WITH TIME COMPLETED

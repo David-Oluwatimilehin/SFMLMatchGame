@@ -1,5 +1,6 @@
 #pragma once
 
+#include "StateMachine.h"
 #include <SFML/Graphics.hpp>
 
 class GridManager;
@@ -17,11 +18,14 @@ private:
 	GridManager* m_gridManager;
 	HUDManager* m_hudManager;
 	sf::RenderWindow* m_window;
+
+	StateMachine m_machine;
 	
 	void End();
 public:
-	Game();
+	Game(){};
 	void Start(unsigned int width, unsigned int height, const char* windowTitle, unsigned int rows, unsigned int columns);
+	void Run(unsigned int width, unsigned int height, unsigned int frameRate, const char* windowTitle, unsigned int rows, unsigned int columns);
 	void Update(unsigned int fpsLimit);
 	
 };
