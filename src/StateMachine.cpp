@@ -1,10 +1,11 @@
 #include "StateMachine.h"
-
+#include "ELevelData.h"
 
 StateMachine::StateMachine():
 	m_resume{false},
 	m_running{false}
 {
+	
 	std::cout << "StateMachine Init\n";
 }
 

@@ -1,31 +1,33 @@
 #include "MenuState.h"
 #include "StateMachine.h"
+#include "GameState.h"
+#include "ELevelData.h"
 #include "HUDManager.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
-
 #include <iostream>
+
 
 MenuState::MenuState(StateMachine& machine, sf::RenderWindow& window, bool shouldReplace) 
 	: State{ machine,window,shouldReplace }
 {
-
 	m_texture = std::make_unique<sf::Texture>("Assets/Background/backTwo.jpg");
 	
-	m_rect = sf::IntRect({ 0,0 }, { (int)window.getView().getSize().x, (int)window.getView().getSize().y });
+	m_rect = new sf::IntRect({ 0,0 }, { (int)window.getView().getSize().x, (int)window.getView().getSize().y });
 
+	// Create the background and set the rectangle
 	m_background = std::make_unique<sf::Sprite>(*m_texture);
-	m_background.get()->setTextureRect(m_rect);
+	m_background.get()->setTextureRect(*m_rect);
 
+	// Create the menu text
 	m_menuManager = std::make_unique<HUDManager>("Assets/Fonts/SolerinMagica.otf");
-	
-	m_menuManager->CreateText(sf::Color::White, { m_window.getView().getSize().x / 4, 
-		m_window.getView().getSize().y/4}, 
-		"MATCH GAME", "welcomeMessage", m_window.getView().getSize().x/12, true);
+	m_menuManager->CreateText(sf::Color::White, { (float)m_window.getView().getSize().x / 4, 
+		(float)m_window.getView().getSize().y/4}, 
+		"MATCH GAME", "welcomeMessage", (int)m_window.getView().getSize().x/12, true);
 
-	m_menuManager->CreateText(sf::Color::White, { m_window.getView().getSize().x / 4, 
-		m_window.getView().getSize().y / 6 * 5 }, 
-		"Press Space to start", "spaceStart", m_window.getView().getSize().x/20, true);
+	m_menuManager->CreateText(sf::Color::White, { (float)m_window.getView().getSize().x / 4,
+		(float)m_window.getView().getSize().y / 6 * 5 }, 
+		"Press Space to start", "spaceStart", (int)m_window.getView().getSize().x/20, true);
 
 	std::cout << "Menu Initialised\n";	
 
@@ -60,25 +62,28 @@ void MenuState::Update()
 				m_machine.Quit();
 				break;
 			case sf::Keyboard::Scancode::Space:
-				m_next = StateMachine::build<MenuState>(m_machine, m_window, false);
+				
+				m_machine.SetDifficulty(EDifficultyLevel::eEasy);
+
+				m_next = StateMachine::build<GameState>(m_machine, m_window, true);
 				break;
 			default:
 				break;
 			}
 		}
-		else if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
-		{
-			
-		}
+		
 	}
+	//m_clock.getElapsedTime();
 }
 
 void MenuState::Draw()
 {
+
 	m_window.clear(sf::Color::White);
 
 	m_window.draw(*m_background);
 	m_menuManager.get()->DisplayElements(m_window);
-	
+	//m_gridManager
+
 	m_window.display();
 }

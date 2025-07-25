@@ -2,7 +2,7 @@
 #include "Tile.h"
 #include <random>
 
-GridManager::GridManager(unsigned int rows, unsigned int columns, sf::Vector2f startPos, const float tileSize, const float tileSpacing) :
+GridManager::GridManager(int rows, int columns, sf::Vector2f startPos, const float tileSize, const float tileSpacing) :
     m_rows(rows),
     m_columns(columns),
     m_startPos(startPos),
@@ -11,7 +11,7 @@ GridManager::GridManager(unsigned int rows, unsigned int columns, sf::Vector2f s
     m_gameBoard(columns,std::vector<Tile*>(rows)),
     m_randEngine(std::random_device()())
 {  
-
+    GeneratePatterns();
 };
 
 
@@ -32,7 +32,7 @@ void GridManager::GeneratePatterns()
         int patternValue = i % numPatternValues;
 
         basePairedList[i * 2] = patternValue; // The first number of the pair
-        basePairedList[i * 2 + 1] = patternValue; // The second number of the
+        basePairedList[i * 2 + 1] = patternValue; // The second number of the pair
         
     }
 

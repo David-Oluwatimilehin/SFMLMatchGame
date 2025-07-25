@@ -77,15 +77,15 @@ void Tile::Draw(sf::RenderWindow& window, const sf::Vector2f& pos)
     backRect.setFillColor(backColour);
     
     sf::RectangleShape middleRect;
-    middleRect.setOrigin(sf::Vector2f(-7.5f, -7.5f));
+    middleRect.setOrigin(sf::Vector2f(-10.0f, -10.0f));
     middleRect.setPosition(pos);
-    middleRect.setSize({ 35.0f, 35.0f });
+	middleRect.setSize({ m_tileSize * 0.75f, m_tileSize * 0.75f });
     middleRect.setFillColor(middleColour);
 
     sf::RectangleShape frontRect;
-    frontRect.setOrigin(sf::Vector2f(-15.0f, -15.0f));
+    frontRect.setOrigin(sf::Vector2f(-25.0f, -25.0f));
     frontRect.setPosition(pos);
-    frontRect.setSize({ 20.0f, 20.0f });
+    frontRect.setSize({ m_tileSize * 0.40f, m_tileSize * 0.40f });
     frontRect.setFillColor(frontColour);
 
     if (isHighlighted)

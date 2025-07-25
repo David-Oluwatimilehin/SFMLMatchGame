@@ -42,7 +42,7 @@ void Game::Start(unsigned int width, unsigned int height, const char* windowTitl
     //m_hudManager->CreateText(sf::Color::White, { float(width / 8) - float(width / 8), float(height / 10) * 7 + 40 }, "0", "currComboAmount", 50);
 }
 
-void Game::Run(unsigned int width, unsigned int height, unsigned int frameRate, const char* windowTitle, unsigned int rows, unsigned int columns)
+void Game::Run(unsigned int width, unsigned int height, int frameRate, const char* windowTitle)
 {
     sf::ContextSettings settings;
     settings.antiAliasingLevel = 8;
@@ -85,7 +85,7 @@ void Game::Update(unsigned int fpsLimit)
     texture.setRepeated(true);
 
     sf::Vector2f targetSize( m_screenWidth, m_screenHeight);
-    sf::Sprite background(texture, sf::IntRect({ 0, 0 }, { m_screenWidth, m_screenHeight }));
+    sf::Sprite background(texture, sf::IntRect({ 0, 0 }, { (int)m_screenWidth, (int)m_screenHeight }));
 
     //background.setScale(sf::Vector2f(
     //    targetSize.x / background.getLocalBounds().size.x,

@@ -2,21 +2,25 @@
 
 #include "State.h"
 
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Rect.hpp>
+
+#include <SFML/System/Clock.hpp>
+
+
 class StateMachine;
 class HUDManager;
 namespace sf {
 	class RenderWindow;
-	
 }
 
 class MenuState final : public State {
 private:
 	
+	sf::Clock m_clock;
 	sf::IntRect* m_rect;
-	sf::Clock* m_clock;
 
 	std::unique_ptr<sf::Texture> m_texture;
 	std::unique_ptr<sf::Sprite> m_background;

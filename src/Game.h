@@ -25,7 +25,7 @@ private:
 public:
 	Game(){};
 	void Start(unsigned int width, unsigned int height, const char* windowTitle, unsigned int rows, unsigned int columns);
-	void Run(unsigned int width, unsigned int height, unsigned int frameRate, const char* windowTitle, unsigned int rows, unsigned int columns);
+	void Run(unsigned int width, unsigned int height, int frameRate, const char* windowTitle);
 	void Update(unsigned int fpsLimit);
 	
 };

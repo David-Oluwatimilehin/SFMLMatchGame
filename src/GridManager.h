@@ -33,7 +33,7 @@ public:
 	
 	std::pair<int, int> GetTileCoords(const sf::Vector2i& mousePos);
 
-	GridManager(unsigned int rows, unsigned int columns, sf::Vector2f startPos, const float tileSize, const float tileSpacing);
+	GridManager(int rows, int columns, sf::Vector2f startPos, const float tileSize, const float tileSpacing);
 	~GridManager();
 	
 };

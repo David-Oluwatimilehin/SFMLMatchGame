@@ -12,8 +12,8 @@ protected:
 	bool m_replacing;
 
 	StateMachine& m_machine;
-	
 	sf::RenderWindow& m_window;
+
 	std::unique_ptr<State> m_next;
 
 public:
