@@ -13,6 +13,7 @@ class Tile;
 class HUDManager;
 class GridManager;
 class SoundManager;
+class BackgroundManager;
 class StateMachine;
 enum ELevelDifficulty;
 
@@ -23,23 +24,22 @@ namespace sf {
 class GameState final: public State {
 private:
 	bool baseVisibility{ true };
+	
 	int m_rows{ 0 };
 	int m_cols{ 0 };
-
+	
 	Tile* selectedTile = nullptr;
 	sf::Vector2i selectedCoords = { -1,-1 };
 
 	sf::Clock m_clock;
-	sf::Time currentTime;
-	sf::Time elapsedBaseTime;
-
-	sf::IntRect* m_rectView;
+	sf::Clock m_deltaTime;
+	sf::Time m_currentTime;
+	sf::Time m_elapsedBaseTime;
+	
 	GridManager* m_gridManager;
 	SoundManager* m_soundManager;
+	BackgroundManager* m_backgroundManager;
 	std::unique_ptr<HUDManager>m_guiManager;
-	
-	std::unique_ptr<sf::Sprite> m_gameBackground;
-	std::unique_ptr<sf::Texture> m_backGameTexture;
 
 public:
 	GameState(StateMachine& machine, sf::RenderWindow& window, bool replace = true);
@@ -48,6 +48,7 @@ public:
 	void SetupSound();
 	void InitialiseHUD(const sf::Vector2f& window);
 	void InitialiseGrid(const sf::Vector2f& window);
+	void InitialiseBackground();
 
 	void Pause() override;
 	void Resume() override;

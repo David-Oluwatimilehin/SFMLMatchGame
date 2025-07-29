@@ -43,8 +43,6 @@ public:
 	void SetMiddleInvisible(bool newVisiblity) { middVisible = newVisiblity; }
 	void SetBackInvisible(bool newVisiblity) { backVisible = newVisiblity; }
 
-
-
 	void Draw(sf::RenderWindow& window, const sf::Vector2f& pos);
 
 };

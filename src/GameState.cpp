@@ -6,6 +6,7 @@
 #include "GridManager.h"
 #include "HUDManager.h"
 #include "SoundManager.h"
+#include "BackgroundManager.h"
 
 #include <iostream>
 #include <sstream>
@@ -22,24 +23,18 @@ GameState::GameState(StateMachine& machine, sf::RenderWindow& window, bool repla
 	
     InitialiseHUD(sf::Vector2f(window.getSize()));
 	
-	m_backGameTexture = std::make_unique<sf::Texture>("Assets/Background/backFour.jpg");
-
-	m_rectView = new sf::IntRect({ 0,0 }, { (int)window.getView().getSize().x, (int)window.getView().getSize().y });
-	// 
-	m_gameBackground = std::make_unique<sf::Sprite>(*m_backGameTexture);
-	m_gameBackground.get()->setTextureRect(*m_rectView);
-
+    InitialiseBackground();
     
-    elapsedBaseTime = sf::Time::Zero;
+    m_elapsedBaseTime = sf::Time::Zero;
 
 	std::cout << "PlayState Init\n";
 }
 
 GameState::~GameState()
 {
-	delete m_rectView;
 	delete m_gridManager;
     delete m_soundManager;
+    delete m_backgroundManager;
 }
 
 void GameState::SetupSound()
@@ -80,6 +75,11 @@ void GameState::InitialiseGrid(const sf::Vector2f& window)
     }
 }
 
+void GameState::InitialiseBackground()
+{
+    m_backgroundManager = new BackgroundManager(5.0f, "Assets/Background/Image.jpg");
+}
+
 void GameState::Pause()
 {
 	std::cout << "PlayState Pause\n";
@@ -92,6 +92,8 @@ void GameState::Resume()
 
 void GameState::Update()
 {
+    const sf::Time dt = m_deltaTime.restart();
+
 	while (const std::optional event = m_window.pollEvent())
 	{
 		if (event->is<sf::Event::Closed>())
@@ -196,22 +198,25 @@ void GameState::Update()
         }
 	}
 
+    m_backgroundManager->ScrollingBackground(dt);
+
+    // --- Timer Logic (remains the same) ---
     if (m_machine.IsRunning()) {
-        currentTime = elapsedBaseTime + m_clock.getElapsedTime();
+        m_currentTime = m_elapsedBaseTime + m_clock.getElapsedTime();
     }
     else {
-        currentTime = elapsedBaseTime;
+        m_currentTime = m_elapsedBaseTime;
     }
 
-    int minutes = static_cast<int>(currentTime.asSeconds() / 60);
-    int seconds = static_cast<int>(currentTime.asSeconds()) % 60;
+    int minutes = static_cast<int>(m_currentTime.asSeconds() / 60);
+    int seconds = static_cast<int>(m_currentTime.asSeconds()) % 60;
 
     std::stringstream ss;
     ss << std::setfill('0') << std::setw(2) << minutes << ":"
         << std::setfill('0') << std::setw(2) << seconds;
 
-    const std::string str=ss.str();
-    m_guiManager->UpdateTimerAmount("Timer: " + str);
+    const std::string timerText = ss.str();
+    m_guiManager->UpdateTimerAmount("Timer: " + timerText);
 
 }
 
@@ -219,7 +224,9 @@ void GameState::Draw()
 {
 	m_window.clear(sf::Color(9, 9, 10));
 
-	m_window.draw(*m_gameBackground);
+    
+    m_backgroundManager->Draw(m_window);
+
 	m_guiManager->DisplayElements(m_window);
 	m_gridManager->DrawTiles(m_window);
 

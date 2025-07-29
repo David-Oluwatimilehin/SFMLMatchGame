@@ -1,5 +1,6 @@
 #include "MenuState.h"
 #include "StateMachine.h"
+#include "BackgroundManager.h"
 #include "GameState.h"
 #include "ELevelData.h"
 #include "HUDManager.h"
@@ -11,13 +12,7 @@
 MenuState::MenuState(StateMachine& machine, sf::RenderWindow& window, bool shouldReplace) 
 	: State{ machine,window,shouldReplace }
 {
-	m_texture = std::make_unique<sf::Texture>("Assets/Background/backTwo.jpg");
-	
-	m_rect = new sf::IntRect({ 0,0 }, { (int)window.getView().getSize().x, (int)window.getView().getSize().y });
-
-	// Create the background and set the rectangle
-	m_background = std::make_unique<sf::Sprite>(*m_texture);
-	m_background.get()->setTextureRect(*m_rect);
+	m_menuBackground = new BackgroundManager(50.0f, "Assets/Background/backThree.jpg");
 
 	// Create the menu text
 	m_menuManager = std::make_unique<HUDManager>("Assets/Fonts/SolerinMagica.otf");
@@ -33,6 +28,11 @@ MenuState::MenuState(StateMachine& machine, sf::RenderWindow& window, bool shoul
 
 }
 
+MenuState::~MenuState()
+{
+	delete m_menuBackground;
+}
+
 void MenuState::Pause()
 {
 	std::cout << "Menu Screen Paused\n";
@@ -46,6 +46,8 @@ void MenuState::Resume()
 void MenuState::Update()
 {
 	//std::cout << "Menu Screen Updated\n";
+	
+	const sf::Time dt = m_clock.restart();
 
 	while (const std::optional event = m_window.pollEvent())
 	{
@@ -73,6 +75,8 @@ void MenuState::Update()
 		}
 		
 	}
+
+	m_menuBackground->ScrollingBackground(dt);
 	//m_clock.getElapsedTime();
 }
 
@@ -81,9 +85,8 @@ void MenuState::Draw()
 
 	m_window.clear(sf::Color::White);
 
-	m_window.draw(*m_background);
+	m_menuBackground->Draw(m_window);
 	m_menuManager.get()->DisplayElements(m_window);
-	//m_gridManager
 
 	m_window.display();
 }

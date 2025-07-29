@@ -11,6 +11,7 @@
 
 
 class StateMachine;
+class BackgroundManager;
 class HUDManager;
 namespace sf {
 	class RenderWindow;
@@ -22,11 +23,11 @@ private:
 	sf::Clock m_clock;
 	sf::IntRect* m_rect;
 
-	std::unique_ptr<sf::Texture> m_texture;
-	std::unique_ptr<sf::Sprite> m_background;
+	BackgroundManager* m_menuBackground;
 	std::unique_ptr<HUDManager>m_menuManager;
 public:
 	MenuState(StateMachine& machine, sf::RenderWindow& window, bool shouldReplace = true);
+	~MenuState();
 
 	void Pause() override;
 	void Resume() override;

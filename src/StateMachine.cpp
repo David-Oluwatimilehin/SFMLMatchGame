@@ -5,7 +5,7 @@ StateMachine::StateMachine():
 	m_resume{false},
 	m_running{false}
 {
-	
+	m_difficultyLevel = EDifficultyLevel::eEasy;
 	std::cout << "StateMachine Init\n";
 }
 
