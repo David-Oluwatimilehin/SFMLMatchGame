@@ -9,7 +9,7 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 
-class Tile;
+struct Tile;
 class HUDManager;
 class GridManager;
 class SoundManager;

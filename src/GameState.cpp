@@ -59,7 +59,7 @@ void GameState::InitialiseHUD(const sf::Vector2f& window)
 void GameState::InitialiseGrid(const sf::Vector2f& window)
 {
     const float tileSize = window.x / 6;
-    const float tileSpacing = 5.0f;
+    const float tileSpacing = 2.5f;
 
     switch (m_machine.GetDifficulty())
     {
@@ -77,7 +77,7 @@ void GameState::InitialiseGrid(const sf::Vector2f& window)
 
 void GameState::InitialiseBackground()
 {
-    m_backgroundManager = new BackgroundManager(5.0f, "Assets/Background/Image.jpg");
+    m_backgroundManager = new BackgroundManager(50.0f, "Assets/Background/backTwo.jpg");
 }
 
 void GameState::Pause()

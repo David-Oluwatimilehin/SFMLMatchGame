@@ -36,10 +36,6 @@ void GridManager::GeneratePatterns()
         
     }
 
-    /*for (size_t i = 0; i < totalTiles - 1; i++) {
-        std::cout << basePairedList[i] <<"\n";
-    }*/
-
     std::vector<int> backgroundNum = basePairedList;
     std::vector<int> middleNum = basePairedList;
     std::vector<int> frontNum = basePairedList;
@@ -55,7 +51,7 @@ void GridManager::GeneratePatterns()
         for (int j = 0; j < m_rows; j++) {
             index = i * m_rows + j;
             
-            m_gameBoard[i][j] = new Tile(backgroundNum[index], middleNum[index], frontNum[index], m_tileSize);
+            m_gameBoard[i][j] = new Tile(backgroundNum[index], middleNum[index], frontNum[index], m_tileSize,m_tileSpacing);
         }
     }
 
@@ -64,7 +60,7 @@ void GridManager::GeneratePatterns()
 void GridManager::RemoveTile(int x, int y)
 {
     m_gameBoard[x][y] = nullptr;
-    delete m_gameBoard[x][y];
+    //delete m_gameBoard[x][y];
 }
 
 void GridManager::DrawTiles(sf::RenderWindow& window)
@@ -122,7 +118,7 @@ GridManager::~GridManager()
     {
         for (int j = 0; j < m_rows; j++)
         {
-            m_gameBoard[i][j] = nullptr;
+            //m_gameBoard[i][j] = nullptr;
             delete m_gameBoard[i][j];
             
         }
@@ -133,20 +129,20 @@ bool GridManager::ResolveMatches(Tile& tileOne, Tile& tileTwo)
 {
     bool anyMatch = false;
 
-    // Sets the Tiles Invisible if they match
-    if (tileOne.GetFrontVis() && tileTwo.GetFrontVis() && tileOne.GetFrontNumber() == tileTwo.GetFrontNumber()) {
-        tileOne.SetFrontInvisible(false);
-        tileTwo.SetFrontInvisible(false);
+    // Sets the tiles invisible if they match
+    if (tileOne.fronVisible && tileTwo.fronVisible && tileOne.frontNumber == tileTwo.frontNumber) {
+        tileOne.SetFrontInvisible();
+        tileTwo.SetFrontInvisible();
         anyMatch = true;
     }
-    if (tileOne.GetMiddleVis() && tileTwo.GetMiddleVis() && tileOne.GetMiddleNumber() == tileTwo.GetMiddleNumber()) {
-        tileOne.SetMiddleInvisible(false);
-        tileTwo.SetMiddleInvisible(false);
+    if (tileOne.middVisible && tileTwo.middVisible && tileOne.middleNumber == tileTwo.middleNumber) {
+        tileOne.SetMiddleInvisible();
+        tileTwo.SetMiddleInvisible();
         anyMatch = true;
     }
-    if (tileOne.GetBackVis() && tileTwo.GetBackVis() && tileOne.GetBackNumber() == tileTwo.GetBackNumber()) {
-        tileOne.SetBackInvisible(false);
-        tileTwo.SetBackInvisible(false);
+    if (tileOne.backVisible && tileTwo.backVisible && tileOne.backNumber == tileTwo.backNumber) {
+        tileOne.SetBackInvisible();
+        tileTwo.SetBackInvisible();
         anyMatch = true;
     }
 
@@ -244,7 +240,6 @@ bool GridManager::HasWonGame()
 
             if (m_gameBoard[i][j] != nullptr)
                 return false;
-            
         }
     }
     return true;

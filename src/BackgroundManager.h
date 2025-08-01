@@ -14,8 +14,8 @@ namespace sf {
 class BackgroundManager
 {
 private:
-	int m_loopWidth{ 0 };
-	int m_scrollSpeed{ 0 };
+	float m_loopWidth{ 0 };
+	float m_scrollSpeed{ 0 };
 	float m_scrollOffset{ 0 };
 	sf::IntRect m_drawRect;
 	std::unique_ptr<sf::Texture>m_backgroundTexture;

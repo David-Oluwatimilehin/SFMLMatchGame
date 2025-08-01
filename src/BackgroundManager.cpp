@@ -7,7 +7,7 @@ BackgroundManager::BackgroundManager(float scrollSpeed, const std::string& path)
 	m_backgroundTexture = std::make_unique<sf::Texture>(path);
 	m_gameBackground = std::make_unique<sf::Sprite>(*m_backgroundTexture);
 
-	m_loopWidth = m_gameBackground.get()->getTexture().getSize().x / 2.0f;
+	m_loopWidth = m_gameBackground.get()->getTexture().getSize().x / 2;
 	
 	m_gameBackground->setPosition({ 0, 0 });
 }

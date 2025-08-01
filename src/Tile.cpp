@@ -1,11 +1,8 @@
 #include "Tile.h"
 
 
-Tile::Tile(int back, int mid, int front, float tileSize): backNumber(back), middleNumber(mid), frontNumber(front), m_tileSize(tileSize)
+Tile::Tile(int back, int mid, int front, float tileSize, float tileSpacing): backNumber(back), middleNumber(mid), frontNumber(front), m_tileSize(tileSize), m_tileSpacing(tileSpacing)
 {
-	fronVisible = true;
-	middVisible = true;
-	backVisible = true;
 
 	switch (back) {
 	case 0:
@@ -69,13 +66,13 @@ void Tile::Draw(sf::RenderWindow& window, const sf::Vector2f& pos)
     highlightRect.setSize({ m_tileSize, m_tileSize });
     highlightRect.setFillColor(sf::Color::Transparent);
     highlightRect.setOutlineColor(sf::Color::Magenta);
-    highlightRect.setOutlineThickness(3.0f);
+    highlightRect.setOutlineThickness(m_tileSpacing);
 
     sf::RectangleShape backRect;
     backRect.setPosition(pos);
     backRect.setSize({ m_tileSize, m_tileSize });
     backRect.setFillColor(backColour);
-    
+
     sf::RectangleShape middleRect;
     middleRect.setOrigin(sf::Vector2f(-10.0f, -10.0f));
     middleRect.setPosition(pos);

@@ -2,7 +2,7 @@
 #include <vector>
 #include <random>
 #include <SFML/Graphics.hpp>
-class Tile;
+struct Tile;
 
 class GridManager
 {

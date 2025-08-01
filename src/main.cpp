@@ -9,7 +9,7 @@ int main()
     
     constexpr int kFrameTarget{ 60 };
 
-    Game newGame(kScreenWidth, kScreenHeight, kFrameTarget, "SFMLMatchGame",kFrameTarget);
+    Game newGame(kScreenWidth, kScreenHeight, kFrameTarget, "SFMLMatchGame", kFrameTarget);
     newGame.Run();
 
     return 0;
