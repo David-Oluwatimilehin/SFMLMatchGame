@@ -12,8 +12,8 @@ protected:
 	bool m_replacing;
 
 	StateMachine& m_machine;
-	
 	sf::RenderWindow& m_window;
+
 	std::unique_ptr<State> m_next;
 
 public:
@@ -27,7 +27,7 @@ public:
 	virtual void Draw() = 0;
 
 	virtual ~State()= default;
-	std::unique_ptr<State> next();
+	std::unique_ptr<State> Next();
 	State& operator=(const State&) = delete;
 
 	bool isReplacing() const { return m_replacing; }

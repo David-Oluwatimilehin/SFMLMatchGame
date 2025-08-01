@@ -27,9 +27,6 @@
     <ClCompile Include="src\HUDManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\IntroState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MenuState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BackgroundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,9 +62,6 @@
     <ClInclude Include="src\HUDManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\IntroState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\SoundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,6 +72,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MenuState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ELevelData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BackgroundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

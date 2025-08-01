@@ -9,6 +9,15 @@ HUDManager::~HUDManager()
 	
 }
 
+HUDManager::HUDManager(const std::string& fontFileName)
+{
+	if (!m_displayFont.openFromFile(fontFileName)) {
+		std::cout << "The font didn't load.\n";
+	}
+
+	std::cout << "The font did load.\n";
+}
+
 HUDManager::HUDManager(int width, int height, const std::string& fontFileName, const sf::Color& color)
 {
 	

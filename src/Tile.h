@@ -3,42 +3,31 @@
 #include <iostream>
 
 
-class Tile
+struct Tile
 {
-private:
-	bool fronVisible;
-	bool middVisible;
-	bool backVisible;
+	bool fronVisible{ true };
+	bool middVisible{ true };
+	bool backVisible{ true };
+	bool isHighlighted{false};
 
 	int backNumber;
 	int middleNumber;
 	int frontNumber;
 
 	float m_tileSize;
-	sf::Vector2f m_pos;
+	float m_tileSpacing;
 
 	sf::Color backColour;
 	sf::Color middleColour;
-	sf::Color frontColour;
-public:
-	bool isHighlighted{false};
+	sf::Color frontColour;	
 
-	Tile(int back, int mid, int front, float tileSize);
+	Tile(int back, int mid, int front, float tileSize, float tileSpacing);
 
 	bool IsFullyInvisible() const { return !fronVisible && !middVisible && !backVisible; }
-	bool GetMiddleVis() const { return middVisible; }
-	bool GetFrontVis() const { return fronVisible; }
-	bool GetBackVis() const { return backVisible; }
-
-	int GetFrontNumber() const { return frontNumber; }
-	int GetMiddleNumber() const { return middleNumber; }
-	int GetBackNumber() const { return backNumber; }
-
-	void SetFrontInvisible(bool newVisiblity) { fronVisible = newVisiblity; }
-	void SetMiddleInvisible(bool newVisiblity) { middVisible = newVisiblity; }
-	void SetBackInvisible(bool newVisiblity) { backVisible = newVisiblity; }
-
-
+	
+	void SetFrontInvisible() { fronVisible = !fronVisible; }
+	void SetMiddleInvisible() { middVisible = !middVisible; }
+	void SetBackInvisible() { backVisible = !backVisible; }
 
 	void Draw(sf::RenderWindow& window, const sf::Vector2f& pos);
 

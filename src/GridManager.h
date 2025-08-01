@@ -2,7 +2,7 @@
 #include <vector>
 #include <random>
 #include <SFML/Graphics.hpp>
-class Tile;
+struct Tile;
 
 class GridManager
 {
@@ -19,21 +19,21 @@ private:
 	Tile* selectedTile{ nullptr };
 	Tile* secondTile{ nullptr };
 
-	sf::Vector2i selectedCoords = { -1,-1 };
+	sf::Vector2i firstCoords = { -1,-1 };
 public:
 	//int checkCounts;
 	std::vector<std::vector<Tile*>> m_gameBoard;
 	
 	bool HasWonGame();	
 	bool ResolveMatches(Tile& tileOne, Tile& tileTwo);
-	bool HandleTileSelection(const sf::Vector2i mousePressed);
+	//bool HandleTileSelection(const sf::Vector2i mousePressed) { return false; }
 	void GeneratePatterns();
 	void RemoveTile(int x, int y);
 	void DrawTiles(sf::RenderWindow& window);
 	
 	std::pair<int, int> GetTileCoords(const sf::Vector2i& mousePos);
 
-	GridManager(unsigned int rows, unsigned int columns, sf::Vector2f startPos, const float tileSize, const float tileSpacing);
+	GridManager(int rows, int columns, sf::Vector2f startPos, const float tileSize, const float tileSpacing);
 	~GridManager();
 	
 };

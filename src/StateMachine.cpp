@@ -1,11 +1,11 @@
 #include "StateMachine.h"
-#include <iostream>
-
+#include "ELevelData.h"
 
 StateMachine::StateMachine():
 	m_resume{false},
 	m_running{false}
 {
+	m_difficultyLevel = EDifficultyLevel::eEasy;
 	std::cout << "StateMachine Init\n";
 }
 
@@ -38,7 +38,7 @@ void StateMachine::NextState()
 	// There needs to be a state
 	if (!m_stateStack.empty())
 	{
-		auto temp = m_stateStack.top()->next();
+		auto temp = m_stateStack.top()->Next();
 
 		// Only change states if there's a next one existing
 		if (temp != nullptr)
@@ -77,6 +77,5 @@ void StateMachine::Draw()
 void StateMachine::Quit()
 {
 	m_running = false;
+	std::cout << "Game Stopped\n";
 }
-
-

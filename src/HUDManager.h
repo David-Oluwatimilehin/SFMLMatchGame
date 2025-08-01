@@ -13,6 +13,7 @@ private:
 	
 public:
 	~HUDManager();
+	HUDManager(const std::string& fontFileName);
 	HUDManager(int width, int height, const std::string& fontFileName, const sf::Color& color);
 
 	void CreateText(const sf::Color& chosenColor, const sf::Vector2f& position, const std::string& textContent, const std::string& textID, int size, bool isVisible);
