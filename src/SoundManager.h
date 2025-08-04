@@ -8,7 +8,7 @@ private:
 	std::unordered_map<std::string, std::unique_ptr<sf::Music>> m_musicMap;
 
 public:
-
+	SoundManager() {};
 	~SoundManager();
 	bool LoadSound(const std::string& filePath, const std::string& soundName, float pitch, float volume);
 	bool LoadMusic(const std::string& filePath, const std::string& songName, float soundPitch, float volume, bool isLooping);

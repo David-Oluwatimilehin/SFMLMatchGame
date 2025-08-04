@@ -33,7 +33,7 @@ GameState::GameState(StateMachine& machine, sf::RenderWindow& window, bool repla
 GameState::~GameState()
 {
 	delete m_gridManager;
-    delete m_soundManager;
+    //delete m_soundManager;
     delete m_backgroundManager;
 }
 
@@ -101,7 +101,11 @@ void GameState::Update()
 			m_machine.Quit();
 			break;
 		}
-		else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+        else if (event->is<sf::Event::Resized>()) {
+            m_window.setSize(sf::Vector2u((int)m_window.getDefaultView().getSize().x, (int)m_window.getDefaultView().getSize().y));
+            break;
+        }        
+        else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
 		{
 			switch (keyPressed->scancode)
 			{

@@ -10,7 +10,6 @@ Game::Game(unsigned int width, unsigned int height, int frameRate, const char* w
 {
     m_window = sf::RenderWindow(sf::VideoMode({ width, height }), windowTitle, sf::Style::Default);
     m_window.setFramerateLimit(frameLimit);
-
     std::cout << "Game Initialised\n";
 }
 

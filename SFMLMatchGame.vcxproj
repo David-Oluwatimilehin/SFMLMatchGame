@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Animation.cpp" />
+    <ClCompile Include="src\AnimationManager.cpp" />
     <ClCompile Include="src\BackgroundManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameState.cpp" />
@@ -144,6 +146,8 @@
     <ClCompile Include="src\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Animation.h" />
+    <ClInclude Include="src\AnimationManager.h" />
     <ClInclude Include="src\BackgroundManager.h" />
     <ClInclude Include="src\ELevelData.h" />
     <ClInclude Include="src\Game.h" />

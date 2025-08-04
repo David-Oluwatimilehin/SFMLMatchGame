@@ -1,6 +1,8 @@
 #include "BackgroundManager.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+
+
 BackgroundManager::BackgroundManager(float scrollSpeed, const std::string& path):
 	m_scrollSpeed(scrollSpeed)
 {
@@ -22,7 +24,8 @@ void BackgroundManager::ScrollingBackground(const sf::Time& deltaTime)
     }
 }
 
-void BackgroundManager::Draw(sf::RenderWindow& window) 
+
+void BackgroundManager::Draw(sf::RenderWindow& window)
 {	
 	m_drawRect = sf::IntRect({ (int)m_scrollOffset, 0 }, { (int)window.getSize().x, (int)window.getSize().y });
 	m_gameBackground->setTextureRect(m_drawRect);

@@ -12,6 +12,9 @@
 MenuState::MenuState(StateMachine& machine, sf::RenderWindow& window, bool shouldReplace) 
 	: State{ machine,window,shouldReplace }
 {
+
+	
+
 	m_menuBackground = new BackgroundManager(50.0f, "Assets/Background/backThree.jpg");
 
 	// Create the menu text
@@ -54,6 +57,10 @@ void MenuState::Update()
 		if (event->is<sf::Event::Closed>())
 		{
 			m_machine.Quit();
+			break;
+		}
+		else if (event->is<sf::Event::Resized>()) {
+			m_window.setSize(sf::Vector2u( (int)m_window.getDefaultView().getSize().x, (int)m_window.getDefaultView().getSize().y ));
 			break;
 		}
 		else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
